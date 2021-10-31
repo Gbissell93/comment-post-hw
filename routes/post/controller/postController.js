@@ -5,22 +5,19 @@ const objectID = require("mongoose").Types.ObjectId;
 async function createPost(req, res) {
   try {
     const { title, post } = req.body;
-    //grab the jwt totle from locals
+
     const decoded = res.locals.decoded;
-    //use the token to find the user
+
     let foundUser = await User.findOne({ email: decoded.email });
-    //create a new post and put foundUser._id as the owner of the new Post
+
     const newPost = new Post({
       title,
       post,
       owner: foundUser._id,
     });
 
-    //save the post
-    let savedPost = await newPost.save();
-    //push the _id of the new Post to the foundUser.postHistory
     foundUser.postHistory.push(savedPost._id);
-    //save it
+
     await foundUser.save();
 
     res.json({ message: "success", payload: savedPost });

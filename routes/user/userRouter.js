@@ -15,7 +15,6 @@ const {
   updateUser,
 } = require("./controller/userController");
 
-/* GET users listing. */
 router.get("/", function (req, res, next) {
   res.json("respond with a resource");
 });

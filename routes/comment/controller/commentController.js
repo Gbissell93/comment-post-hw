@@ -86,7 +86,6 @@ async function updateCommentById(req, res) {
   try {
     let foundComment = await Comment.findById(req.params.id);
 
-    //You also need to check if you are the owner of the comment!
     const decoded = res.locals.decoded;
 
     let foundUser = await User.findOne({ email: decoded.email });
